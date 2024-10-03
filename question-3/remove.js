@@ -2,25 +2,20 @@
 // 101353763
 // LAB TEST 01 - Question 03, Answer 1 For Removing Files
 
-// I imported the required file system module with promise support for asynchronous operations
-const fileSystemPromises = require('fs').promises;
 
-// I imported the path module to handle and construct file and directory paths
-const filePathModule = require('path');
 
-// I defined a constant for the name of the Logs directory to ensure consistency
-const LOGS_DIRECTORY_NAME = 'Logs';
+const fileSystemPromises = require('fs').promises; // I imported the required file system module with promise support for asynchronous operations
+const filePathModule = require('path');  // I imported the path module to handle and construct file and directory paths
+const LOGS_DIRECTORY_NAME = 'Logs'; // I defined a constant for the name of the Logs directory to ensure consistency
 
 // I defined an asynchronous function to handle the removal of log files and the Logs directory
 const removeLogFiles = async () => {
     // I constructed the absolute path to the Logs directory based on the current working directory
     const logsDirectoryPath = filePathModule.join(process.cwd(), LOGS_DIRECTORY_NAME);
-
     try {
         // I attempted to access the Logs directory to check if it exists
         await fileSystemPromises.access(logsDirectoryPath);
-        
-        // If no error is thrown, the Logs directory exists
+        // If no error is thrown, the Logs directory exists here
     } catch (error) {
         // I handled errors that occurred during the access check
         if (error.code === 'ENOENT') { // I checked if the directory does not exist
@@ -37,22 +32,17 @@ const removeLogFiles = async () => {
             throw error;
         }
     }
-
-    let logFiles = [];
-
+    let logFiles = []; // I defined an empty array here.
     try {
-        // I attempted to read all files within the Logs directory
-        logFiles = await fileSystemPromises.readdir(logsDirectoryPath);
+        logFiles = await fileSystemPromises.readdir(logsDirectoryPath); // I attempted to read all files within the Logs directory
     } catch (error) {
-        // I handled errors that occurred while reading the contents of the Logs directory
-        if (error.code === 'EACCES' || error.code === 'EPERM') {
+        if (error.code === 'EACCES' || error.code === 'EPERM') { // I handled errors that occurred while reading the contents of the Logs directory
             console.error('Permission denied while reading the Logs directory:', error.message);
         } else {
             console.error(`Failed to read contents of ${LOGS_DIRECTORY_NAME} directory:`, error.message);
         }
         return; // I exited the function to prevent further execution
     }
-
     // I checked if the Logs directory is empty
     if (logFiles.length === 0) {
         console.log(`${LOGS_DIRECTORY_NAME} directory is empty. No files to delete.`);
@@ -83,8 +73,7 @@ const removeLogFiles = async () => {
     }
 
     try {
-        // I attempted to remove the Logs directory itself
-        await fileSystemPromises.rmdir(logsDirectoryPath);
+        await fileSystemPromises.rmdir(logsDirectoryPath); // I attempted to remove the Logs directory itself
         console.log(`${LOGS_DIRECTORY_NAME} directory has been removed successfully.`);
     } catch (error) {
         // I handled errors that occurred while removing the Logs directory
@@ -97,10 +86,7 @@ const removeLogFiles = async () => {
         }
     }
 };
-
-// I executed the removeLogFiles function and handled any unexpected errors
-removeLogFiles()
+removeLogFiles() // I executed the removeLogFiles function and handled any unexpected errors
     .catch(error => {
-        // I logged any unhandled errors that occurred during the execution of removeLogFiles
-        console.error('An unexpected error occurred:', error.message);
+        console.error('An unexpected error occurred:', error.message); // I logged any unhandled errors that occurred during the execution of removeLogFiles
     });
