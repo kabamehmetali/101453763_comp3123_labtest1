@@ -1,6 +1,6 @@
 // Mehmet Ali KABA
 // 101453763
-// LAB TEST 1
+// LAB TEST 1 - Question 01 Answer
 
 let mixedArray = ["Pizza", 10, true, 25, false, "wings"]; // I defined default array as on paper.
 let b;
