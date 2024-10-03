@@ -12,18 +12,18 @@ const lowerCaseWords = async (myArr) => {
         console.error("Array is not defined.");
         return; // app exits the function if array is not defined here.
     }
-    
+
     try { // I use try and catch block to check and prevent app to crash.
         // Filter the array to keep only string values
-        let result = myArr.filter(item => typeof item === 'string'); // I filter the array to only include strings as we learned in class.
+        let filterResult = myArr.filter(item => typeof item === 'string'); // I filter the array to only include strings as we learned in class.
         // If no strings are found, I return a rejected promise with the message "No strings found in the array" and prevent to crush again.
-        if (result.length === 0) {
+        if (filterResult.length === 0) {
             return Promise.reject("No strings found in the array."); // return a recject promise here if there is no strings in array.
         }
         
         let lowerCaseArray = []; // If there are strings i loop it and save it into a new array.
-        for (let i = 0; i < result.length; i++) {
-            lowerCaseArray.push(result[i].toLowerCase()); // I lower the result and save it to new array
+        for (let x = 0; x < filterResult.length; x++) {
+            lowerCaseArray.push(filterResult[x].toLowerCase()); // I lower the result and save it to new array
         }
 
         return Promise.resolve(lowerCaseArray); // I return a resolve promise with my new lower case array.
